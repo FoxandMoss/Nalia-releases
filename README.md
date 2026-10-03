@@ -4,12 +4,16 @@ Public Windows installer and release assets for **Nalia**, the Natural Adaptive 
 
 The application source lives in the private `FoxandMoss/Nalia` repository. This repository intentionally contains public release artifacts only.
 
-## Permanent Windows installer
+## Permanent Windows download
 
-The website uses this versionless release asset path:
+Use GitHub Releases, not a raw repository-file URL.
 
-`https://github.com/FoxandMoss/Nalia-releases/releases/latest/download/NaliaSetup.exe`
+Website and other public download buttons should use this versionless path:
 
-`NaliaSetup.exe` is the small evergreen bootstrapper. It finds the newest public Nalia Windows release and launches that installer.
+`https://github.com/FoxandMoss/Nalia-releases/releases/latest/download/Nalia-Windows-Installer.exe`
 
-Nalia is currently early Windows development. Do not treat a release as verified until its source status/handoff marks clean installation and runtime checks as complete.
+Each public release publishes the current Windows installer under the stable asset name `Nalia-Windows-Installer.exe` and verifies the downloaded asset checksum against the staged build.
+
+A bootstrap installer may also be attached to releases for recovery/update use, but the public website download must not depend on a `/raw/main/windows/...` repository file.
+
+Nalia is currently early Windows development. Do not treat a release as verified until its release workflow and runtime checks complete successfully.
