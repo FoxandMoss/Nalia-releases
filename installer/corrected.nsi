@@ -11,7 +11,7 @@ SetCompressor zlib
 !endif
 
 Name "Nalia"
-OutFile "Nalia_0.1.0.1_x64-setup.exe"
+OutFile "Nalia-Windows-Installer.exe"
 InstallDir "$LOCALAPPDATA\Programs\Nalia"
 
 Var DriveDialog
