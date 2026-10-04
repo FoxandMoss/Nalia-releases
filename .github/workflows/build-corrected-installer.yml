@@ -55,7 +55,7 @@ jobs:
           if (!(Test-Path $makensis)) { $makensis = (Get-Command makensis.exe).Source }
           & $makensis "/DSTAGEDIR=C:\nalia-stage" "installer\corrected.nsi"
           if ($LASTEXITCODE -ne 0) { throw "makensis failed: $LASTEXITCODE" }
-          if (!(Test-Path "installer\Nalia_0.1.0.1_x64-setup.exe")) { throw "Corrected installer missing" }
+          if (!(Test-Path "installer\Nalia-Windows-Installer.exe")) { throw "Corrected installer missing" }
 
       - name: Publish installer revision
         env:
@@ -64,11 +64,12 @@ jobs:
         run: |
           $ErrorActionPreference = "Stop"
           $tag = "v0.1.0-installerfix1"
-          if (-not (gh release view $tag --repo $env:GITHUB_REPOSITORY 2>$null)) {
+          gh release view $tag --repo $env:GITHUB_REPOSITORY *> $null
+          if ($LASTEXITCODE -ne 0) {
             gh release create $tag --repo $env:GITHUB_REPOSITORY --target main --title "Nalia v0.1.0 installer fix 1" --notes "Nalia v0.1.0 payload with corrected drive-radio installer and retroactive cleanup for stale Nalia tasks, startup entries, and helpers."
           }
           New-Item -ItemType Directory -Force release-out | Out-Null
-          Copy-Item "installer\Nalia_0.1.0.1_x64-setup.exe" "release-out\Nalia-Windows-Installer.exe"
+          Copy-Item "installer\Nalia-Windows-Installer.exe" "release-out\Nalia-Windows-Installer.exe"
           $sha=(Get-FileHash "release-out\Nalia-Windows-Installer.exe" -Algorithm SHA256).Hash.ToLower()
           "$sha  Nalia-Windows-Installer.exe" | Set-Content "release-out\Nalia-Windows-Installer.exe.sha256" -Encoding ascii
           gh release upload $tag "release-out\Nalia-Windows-Installer.exe" "release-out\Nalia-Windows-Installer.exe.sha256" --repo $env:GITHUB_REPOSITORY --clobber
