@@ -92,7 +92,7 @@ Function DrivePage
   ${NSD_CreateLabel} 0 166u 100% 18u ""
   Pop $InstallPathLabel
   ${If} $DriveSelected != ""
-    StrCpy $INSTDIR "$DriveSelectedNalia"
+    StrCpy $INSTDIR "$DriveSelected\Nalia"
     ${NSD_SetText} $InstallPathLabel "Install location: $INSTDIR"
   ${EndIf}
 
@@ -103,7 +103,7 @@ Function DriveRadioClick
   Pop $0
   nsDialogs::GetUserData $0
   Pop $DriveSelected
-  StrCpy $INSTDIR "$DriveSelectedNalia"
+  StrCpy $INSTDIR "$DriveSelected\Nalia"
   ${NSD_SetText} $InstallPathLabel "Install location: $INSTDIR"
 FunctionEnd
 
@@ -112,7 +112,7 @@ Function DrivePageLeave
     MessageBox MB_ICONEXCLAMATION "Choose a drive for Nalia."
     Abort
   ${EndIf}
-  StrCpy $INSTDIR "$DriveSelectedNalia"
+  StrCpy $INSTDIR "$DriveSelected\Nalia"
 FunctionEnd
 
 Section "Install"
