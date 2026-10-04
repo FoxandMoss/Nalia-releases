@@ -11,7 +11,7 @@ SetCompressor /SOLID lzma
 !endif
 
 Name "Nalia"
-OutFile "Nalia_0.1.1_x64-setup.exe"
+OutFile "Nalia_0.1.0.1_x64-setup.exe"
 InstallDir "$LOCALAPPDATA\Programs\Nalia"
 
 Var DriveDialog
@@ -130,7 +130,7 @@ Section "Install"
   WriteUninstaller "$INSTDIR\uninstall.exe"
 
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Nalia" "DisplayName" "Nalia"
-  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Nalia" "DisplayVersion" "0.1.1"
+  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Nalia" "DisplayVersion" "0.1.0.1"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Nalia" "Publisher" "Fox & Moss"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Nalia" "InstallLocation" "$INSTDIR"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\Nalia" "UninstallString" '"$INSTDIR\uninstall.exe"'
