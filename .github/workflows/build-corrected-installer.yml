@@ -68,6 +68,9 @@ jobs:
           if ($LASTEXITCODE -ne 0) {
             gh release create $tag --repo $env:GITHUB_REPOSITORY --target main --title "Nalia v0.1.0 installer fix 1" --notes "Nalia v0.1.0 payload with corrected drive-radio installer and retroactive cleanup for stale Nalia tasks, startup entries, and helpers."
           }
+          gh release edit $tag --repo $env:GITHUB_REPOSITORY --latest
+          if ($LASTEXITCODE -ne 0) { throw "Could not mark corrected Nalia release as latest" }
+
           New-Item -ItemType Directory -Force release-out | Out-Null
           Copy-Item "installer\Nalia-Windows-Installer.exe" "release-out\Nalia-Windows-Installer.exe"
           $sha=(Get-FileHash "release-out\Nalia-Windows-Installer.exe" -Algorithm SHA256).Hash.ToLower()
