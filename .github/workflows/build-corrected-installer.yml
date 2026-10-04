@@ -8,6 +8,10 @@ on:
       - ".github/workflows/build-corrected-installer.yml"
   workflow_dispatch:
 
+concurrency:
+  group: corrected-installer-${{ github.repository }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -27,7 +31,8 @@ jobs:
         run: |
           $ErrorActionPreference = "Stop"
           $url = "https://github.com/FoxandMoss/Nalia-releases/releases/download/v0.1.0/Nalia-Windows-Installer.exe"
-          Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile "$env:RUNNER_TEMP\nalia-old.exe"
+          curl.exe -L --fail --retry 5 --retry-delay 2 -o "$env:RUNNER_TEMP\nalia-old.exe" $url
+          if ($LASTEXITCODE -ne 0) { throw "Nalia payload download failed: $LASTEXITCODE" }
 
       - name: Stage current Nalia files
         shell: powershell
